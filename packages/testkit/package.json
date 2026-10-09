@@ -1,0 +1,47 @@
+{
+  "name": "@gun-ai/harness-testkit",
+  "version": "0.1.0-alpha.1",
+  "private": false,
+  "description": "Deterministic fixtures and failure injection for Gun Harness consumers.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "api-surface.json",
+    "dist/deterministic.d.ts",
+    "dist/failures.d.ts",
+    "dist/fixtures.d.ts",
+    "dist/index.d.ts",
+    "dist/deterministic.js",
+    "dist/failures.js",
+    "dist/fixtures.js",
+    "dist/index.js",
+    "src/deterministic.ts",
+    "src/failures.ts",
+    "src/fixtures.ts",
+    "src/index.ts"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@gun-ai/harness-contracts": "0.1.0-alpha.1",
+    "@gun-ai/harness-kernel": "0.1.0-alpha.1"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
