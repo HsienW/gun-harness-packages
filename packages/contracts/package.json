@@ -1,0 +1,61 @@
+{
+  "name": "@gun-ai/harness-contracts",
+  "version": "0.1.0-alpha.1",
+  "private": false,
+  "description": "Framework-agnostic Chat Gun runtime v4 contracts and schemas.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "api-surface.json",
+    "dist/authorization.d.ts",
+    "dist/events.d.ts",
+    "dist/identity.d.ts",
+    "dist/index.d.ts",
+    "dist/lifecycle.d.ts",
+    "dist/recovery.d.ts",
+    "dist/retry.d.ts",
+    "dist/side-effect.d.ts",
+    "dist/tool.d.ts",
+    "dist/authorization.js",
+    "dist/events.js",
+    "dist/identity.js",
+    "dist/index.js",
+    "dist/lifecycle.js",
+    "dist/recovery.js",
+    "dist/retry.js",
+    "dist/side-effect.js",
+    "dist/tool.js",
+    "src/authorization.ts",
+    "src/events.ts",
+    "src/identity.ts",
+    "src/index.ts",
+    "src/lifecycle.ts",
+    "src/recovery.ts",
+    "src/retry.ts",
+    "src/side-effect.ts",
+    "src/tool.ts"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "zod": "^3.25.32"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
