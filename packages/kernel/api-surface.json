@@ -1,0 +1,37 @@
+{
+  "runtime": [
+    "RunSequenceAllocator",
+    "RuntimeVersionCompatibilityError",
+    "assertResumeVersionCompatible",
+    "checkBudget",
+    "classifyError",
+    "computeBackoff",
+    "createBudget",
+    "createReplayKey",
+    "createRequestDedupKey",
+    "createToolExecutionAttemptIdentity",
+    "evaluateRuntimeVersionCompatibility",
+    "hashBusinessEffectKey",
+    "isActiveScopePresent",
+    "isRuntimeEventType",
+    "isScopeCompatible",
+    "parseDurableInterruptManifest",
+    "parseKey",
+    "parseRuntimeEventEnvelope",
+    "parseRuntimeEventPayload",
+    "parseRuntimeEventSchemaVersion",
+    "projectTrustedScope",
+    "recordAttempt",
+    "requireOpaqueId",
+    "scopeTenantMatches",
+    "serializeKey",
+    "stableEventId"
+  ],
+  "types": [
+    "HashPort",
+    "RandomUuidPort",
+    "RunSequenceAllocatorOptions",
+    "RuntimeVersionSet",
+    "VersionCompatibility"
+  ]
+}

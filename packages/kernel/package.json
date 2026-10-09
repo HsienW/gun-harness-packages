@@ -1,0 +1,55 @@
+{
+  "name": "@gun-ai/harness-kernel",
+  "version": "0.1.0-alpha.1",
+  "private": false,
+  "description": "Deterministic framework-free primitives for Gun Harness.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "api-surface.json",
+    "dist/authorization.d.ts",
+    "dist/events.d.ts",
+    "dist/idempotency.d.ts",
+    "dist/index.d.ts",
+    "dist/retry.d.ts",
+    "dist/side-effect.d.ts",
+    "dist/version-compatibility.d.ts",
+    "dist/authorization.js",
+    "dist/events.js",
+    "dist/idempotency.js",
+    "dist/index.js",
+    "dist/retry.js",
+    "dist/side-effect.js",
+    "dist/version-compatibility.js",
+    "src/authorization.ts",
+    "src/events.ts",
+    "src/idempotency.ts",
+    "src/index.ts",
+    "src/retry.ts",
+    "src/side-effect.ts",
+    "src/version-compatibility.ts"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@gun-ai/harness-contracts": "0.1.0-alpha.1"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
