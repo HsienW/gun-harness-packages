@@ -1,7 +1,7 @@
 # Gun Harness Packages
 
 
-- `gun-harness` 是 npm package implementation，保存可執行 contracts、kernel、testkit、測試與發佈相關設定。
+- `gun-harness-packages` 是 npm package implementation，保存可執行 contracts、kernel、testkit、測試與發佈相關設定。
 - `gun-harness-engineering` 是負責 Harness 的理念、名詞、架構推論、ADR、實驗與成熟度模型保存在獨立的 repository。
 
 > Engineering repository 解釋「為什麼」，本 repository 定義並驗證「可以依賴什麼」。
