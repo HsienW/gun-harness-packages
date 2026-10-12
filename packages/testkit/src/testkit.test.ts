@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
+import { registerTool } from "@gun-ai/harness-sdk";
 
 import {
   createDeterministicClock,
@@ -7,6 +8,7 @@ import {
   createExecutionContextFixture,
   createFailureInjectionFixture,
   createRuntimeEventEnvelopeFixture,
+  createSdkRegistrationFailureFixture,
   createTaskFixture,
 } from "./index.js";
 
@@ -32,8 +34,22 @@ describe("testkit deterministic fixtures", () => {
     assert.equal(envelope.context.runId, "run-custom");
   });
 
+  it("models SDK registration failures with stable IDs", async () => {
+    for (const kind of ["duplicate_tool_id", "invalid_schema"] as const) {
+      const fixture = createSdkRegistrationFailureFixture(kind);
+      const registryBefore = [...(fixture.input.existingTools ?? [])];
+      const result = await registerTool(fixture.input);
+      assert.equal(result.ok, false);
+      if (!result.ok) {
+        assert.equal(result.error.code, fixture.expectedCode);
+        assert.equal(result.error.toolId, "fixture_read_tool");
+      }
+      assert.deepEqual(fixture.input.existingTools ?? [], registryBefore);
+    }
+  });
+
   it("models every required failure injection kind", () => {
-    const kinds = ["timeout", "cancellation", "malformed_argument", "duplicate_delivery", "authz_denial", "approval_wait"] as const;
+    const kinds = ["timeout", "cancellation", "malformed_argument", "duplicate_delivery", "authz_denial", "approval_wait", "ambiguous_commit"] as const;
     assert.deepEqual(kinds.map((kind) => createFailureInjectionFixture(kind).kind), kinds);
   });
 });

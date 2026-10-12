@@ -4,7 +4,8 @@ export type FailureInjectionKind =
   | "malformed_argument"
   | "duplicate_delivery"
   | "authz_denial"
-  | "approval_wait";
+  | "approval_wait"
+  | "ambiguous_commit";
 
 export type FailureInjectionFixture =
   | { kind: "timeout"; errorCode: "TIMEOUT"; delayMs: number }
@@ -12,7 +13,8 @@ export type FailureInjectionFixture =
   | { kind: "malformed_argument"; errorCode: "SCHEMA_INVALID"; value: unknown }
   | { kind: "duplicate_delivery"; deliveryCount: number }
   | { kind: "authz_denial"; errorCode: "PERMISSION_DENIED" }
-  | { kind: "approval_wait"; errorCode: "REQUIRES_CONFIRMATION"; timeoutMs: number };
+  | { kind: "approval_wait"; errorCode: "REQUIRES_CONFIRMATION"; timeoutMs: number }
+  | { kind: "ambiguous_commit"; errorCode: "AMBIGUOUS_COMMIT"; dispatchState: "unknown" };
 
 export function createFailureInjectionFixture(kind: FailureInjectionKind): FailureInjectionFixture {
   switch (kind) {
@@ -22,5 +24,6 @@ export function createFailureInjectionFixture(kind: FailureInjectionKind): Failu
     case "duplicate_delivery": return { kind, deliveryCount: 2 };
     case "authz_denial": return { kind, errorCode: "PERMISSION_DENIED" };
     case "approval_wait": return { kind, errorCode: "REQUIRES_CONFIRMATION", timeoutMs: 60_000 };
+    case "ambiguous_commit": return { kind, errorCode: "AMBIGUOUS_COMMIT", dispatchState: "unknown" };
   }
 }

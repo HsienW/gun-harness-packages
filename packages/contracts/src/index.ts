@@ -142,6 +142,21 @@ export type {
   InterruptManifestStatus,
 } from "./recovery.js";
 
+/** Versioned in-memory agent/tool declaration contracts. @since 0.1.0 */
+export {
+  MANIFEST_SCHEMA_VERSION,
+  SIDE_EFFECT_CLASSES,
+  agentManifestSchema,
+  agentToolManifestSchema,
+  toolManifestSchema,
+} from "./agent-tool-manifest.js";
+export type {
+  AgentManifest,
+  AgentToolManifest,
+  SideEffectClass,
+  ToolManifest,
+  ToolManifestEvidence,
+} from "./agent-tool-manifest.js";
 /** Stable tool descriptor and structured-result contracts. @since 0.1.0 */
 export { structuredToolResultEnvelopeSchema } from "./tool.js";
 export type {

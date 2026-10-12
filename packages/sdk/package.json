@@ -1,0 +1,41 @@
+{
+  "name": "@gun-ai/harness-sdk",
+  "version": "0.1.0-alpha.2",
+  "private": false,
+  "description": "Safe-by-default declarations for Gun Harness agents and tools.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "README.md",
+    "api-surface.json",
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@gun-ai/harness-contracts": "0.1.0-alpha.2",
+    "@gun-ai/harness-kernel": "0.1.0-alpha.2"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "devDependencies": {
+    "zod": "^3.25.32"
+  }
+}

@@ -37,6 +37,7 @@ export type InterruptBehavior = "cancel_safe" | "finish_current" | "reconcile_fi
 export interface RuntimeToolDescriptor<TInput = unknown, TOutput = unknown> {
   toolName: string;
   toolVersion: string;
+  manifestVersion?: string;
   inputSchema: RuntimeSchema<TInput>;
   outputSchema: RuntimeSchema<TOutput>;
   riskTier: ToolRiskTier;
@@ -81,6 +82,7 @@ export const structuredToolResultEnvelopeSchema = z.object({
     readOnly: z.boolean(),
   }).strict(),
   outcome: governedToolOutcomeSchema,
+  manifestVersion: z.string().min(1).optional(),
   executionProfileVersion: z.string().min(1).nullable().optional(),
   effectiveCapabilities: z.record(z.unknown()).nullable().optional(),
   secretRefsUsed: z.array(z.string()).nullable().optional(),
@@ -112,6 +114,7 @@ export interface StructuredToolResultEnvelope<TResult = unknown> {
   correlation: { requestId: string; threadId: string; runId: string; toolCallId: string; stepId?: string };
   tool: { name: string; version: string; riskTier: RuntimeToolDescriptor["riskTier"]; readOnly: boolean };
   outcome: GovernedOutcome<TResult>;
+  manifestVersion?: string;
   executionProfileVersion?: string | null;
   effectiveCapabilities?: EffectiveCapabilitiesShape | null;
   secretRefsUsed?: string[] | null;

@@ -5,6 +5,7 @@
     "createExecutionContextFixture",
     "createFailureInjectionFixture",
     "createRuntimeEventEnvelopeFixture",
+    "createSdkRegistrationFailureFixture",
     "createTaskFixture"
   ],
   "types": [
@@ -12,6 +13,7 @@
     "ExecutionContextFixtureOverrides",
     "FailureInjectionFixture",
     "FailureInjectionKind",
-    "RuntimeEventEnvelopeFixtureInput"
+    "RuntimeEventEnvelopeFixtureInput",
+    "SdkRegistrationFailureKind"
   ]
 }

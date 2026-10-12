@@ -5,6 +5,7 @@ export interface RuntimeVersionSet {
   checkpointVersion?: string;
   sideEffectVersion?: string;
   idempotencyVersion?: string;
+  manifestVersion?: string;
 }
 
 export type VersionCompatibility =
@@ -15,12 +16,12 @@ export type VersionCompatibility =
 function parseVersionSet(value: unknown): RuntimeVersionSet {
   if (value === null || typeof value !== "object" || Array.isArray(value)) throw new Error("Invalid RuntimeVersionSet");
   const record = value as Record<string, unknown>;
-  const allowed = new Set(["schemaVersion", "eventVersion", "packageVersion", "checkpointVersion", "sideEffectVersion", "idempotencyVersion"]);
+  const allowed = new Set(["schemaVersion", "eventVersion", "packageVersion", "checkpointVersion", "sideEffectVersion", "idempotencyVersion", "manifestVersion"]);
   if (Object.keys(record).some((key) => !allowed.has(key))) throw new Error("Invalid RuntimeVersionSet");
   for (const field of ["schemaVersion", "eventVersion", "packageVersion"] as const) {
     if (typeof record[field] !== "string" || record[field].trim().length === 0) throw new Error("Invalid RuntimeVersionSet");
   }
-  for (const field of ["checkpointVersion", "sideEffectVersion", "idempotencyVersion"] as const) {
+  for (const field of ["checkpointVersion", "sideEffectVersion", "idempotencyVersion", "manifestVersion"] as const) {
     if (record[field] !== undefined && (typeof record[field] !== "string" || record[field].trim().length === 0)) {
       throw new Error("Invalid RuntimeVersionSet");
     }
@@ -32,6 +33,7 @@ function parseVersionSet(value: unknown): RuntimeVersionSet {
     ...(record.checkpointVersion === undefined ? {} : { checkpointVersion: record.checkpointVersion as string }),
     ...(record.sideEffectVersion === undefined ? {} : { sideEffectVersion: record.sideEffectVersion as string }),
     ...(record.idempotencyVersion === undefined ? {} : { idempotencyVersion: record.idempotencyVersion as string }),
+    ...(record.manifestVersion === undefined ? {} : { manifestVersion: record.manifestVersion as string }),
   };
 }
 
