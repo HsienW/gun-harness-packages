@@ -1,0 +1,23 @@
+{
+  "runtime": [
+    "MANIFEST_SCHEMA_VERSION",
+    "createContextView",
+    "defineAgent",
+    "defineTool",
+    "projectProviderToolDescription",
+    "registerTool",
+    "registerTools",
+    "validateManifest"
+  ],
+  "types": [
+    "ContextView",
+    "ProviderDescriptionAdapter",
+    "ProviderToolDescription",
+    "RegistrationFailure",
+    "RegistrationFailureCode",
+    "RegistrationHooks",
+    "RegistrationInput",
+    "RegistrationPlan",
+    "RegistrationResult"
+  ]
+}

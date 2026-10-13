@@ -8,6 +8,7 @@
   "workspaces": [
     "packages/contracts",
     "packages/kernel",
+    "packages/sdk",
     "packages/testkit"
   ],
   "scripts": {

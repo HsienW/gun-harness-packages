@@ -1,6 +1,6 @@
 {
   "name": "@gun-ai/harness-contracts",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "private": false,
   "description": "Framework-agnostic Chat Gun runtime v4 contracts and schemas.",
   "license": "MIT",
@@ -20,6 +20,7 @@
   "files": [
     "CHANGELOG.md",
     "api-surface.json",
+    "dist/agent-tool-manifest.d.ts",
     "dist/authorization.d.ts",
     "dist/events.d.ts",
     "dist/identity.d.ts",
@@ -29,6 +30,7 @@
     "dist/retry.d.ts",
     "dist/side-effect.d.ts",
     "dist/tool.d.ts",
+    "dist/agent-tool-manifest.js",
     "dist/authorization.js",
     "dist/events.js",
     "dist/identity.js",
@@ -38,6 +40,7 @@
     "dist/retry.js",
     "dist/side-effect.js",
     "dist/tool.js",
+    "src/agent-tool-manifest.ts",
     "src/authorization.ts",
     "src/events.ts",
     "src/identity.ts",

@@ -9,3 +9,7 @@ export type { ExecutionContextFixtureOverrides, RuntimeEventEnvelopeFixtureInput
 /** Stable failure injection fixtures. @since 0.1.0 */
 export { createFailureInjectionFixture } from "./failures.js";
 export type { FailureInjectionFixture, FailureInjectionKind } from "./failures.js";
+
+/** SDK registration failure fixtures. @since 0.1.0-alpha.2 */
+export { createSdkRegistrationFailureFixture } from "./sdk-fixtures.js";
+export type { SdkRegistrationFailureKind } from "./sdk-fixtures.js";

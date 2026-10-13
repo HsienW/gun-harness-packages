@@ -103,6 +103,14 @@ describe("runtime version compatibility", () => {
     assert.deepEqual(evaluateRuntimeVersionCompatibility({ observed: supported[0], supported }), { status: "compatible" });
   });
 
+  it("accepts the explicitly supported manifest version and keeps legacy sets valid", () => {
+    const withManifest = { ...supported[0], manifestVersion: "1.0.0" };
+    assert.deepEqual(evaluateRuntimeVersionCompatibility({ observed: withManifest, supported: [withManifest] }), { status: "compatible" });
+    assert.deepEqual(evaluateRuntimeVersionCompatibility({ observed: supported[0], supported }), { status: "compatible" });
+    assert.deepEqual(evaluateRuntimeVersionCompatibility({
+      observed: { ...withManifest, manifestVersion: "9.0.0" }, supported: [withManifest],
+    }), { status: "unknown", errorCode: "RUNTIME_VERSION_UNTESTED" });
+  });
   it("throws a typed unknown-version failure with safe correlation", () => {
     const result = evaluateRuntimeVersionCompatibility({
       observed: { ...supported[0], eventVersion: "2.0.0" }, supported,
