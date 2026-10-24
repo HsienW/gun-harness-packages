@@ -1,6 +1,6 @@
 {
   "name": "@gun-ai/harness-testkit",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "private": false,
   "description": "Deterministic fixtures and failure injection for Gun Harness consumers.",
   "license": "MIT",
@@ -41,9 +41,9 @@
     "prepack": "npm run build"
   },
   "dependencies": {
-    "@gun-ai/harness-contracts": "0.1.0-alpha.2",
-    "@gun-ai/harness-kernel": "0.1.0-alpha.2",
-    "@gun-ai/harness-sdk": "0.1.0-alpha.2",
+    "@gun-ai/harness-contracts": "0.1.0-alpha.3",
+    "@gun-ai/harness-kernel": "0.1.0-alpha.3",
+    "@gun-ai/harness-sdk": "0.1.0-alpha.3",
     "zod": "^3.25.32"
   },
   "engines": {

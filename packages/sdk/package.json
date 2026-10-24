@@ -1,6 +1,6 @@
 {
   "name": "@gun-ai/harness-sdk",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "private": false,
   "description": "Safe-by-default declarations for Gun Harness agents and tools.",
   "license": "MIT",
@@ -29,8 +29,8 @@
     "prepack": "npm run build"
   },
   "dependencies": {
-    "@gun-ai/harness-contracts": "0.1.0-alpha.2",
-    "@gun-ai/harness-kernel": "0.1.0-alpha.2"
+    "@gun-ai/harness-contracts": "0.1.0-alpha.3",
+    "@gun-ai/harness-kernel": "0.1.0-alpha.3"
   },
   "engines": {
     "node": ">=22.19.0"

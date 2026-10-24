@@ -57,13 +57,29 @@ export interface RuntimeToolIdentity { toolName: string; toolVersion: string }
 
 const governedToolOutcomeSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("succeeded"), result: z.unknown() }).strict(),
+  z.object({
+    type: z.literal("deduplicated"),
+    reason: z.enum(["committed_result_reused", "in_flight_duplicate", "original_outcome_unknown"]),
+    original: z.object({ businessEffectId: z.string(), toolExecutionId: z.string().optional() }).strict(),
+    result: z.unknown().optional(),
+  }).strict(),
   z.object({ type: z.literal("rejected_before_dispatch"), errorCode: z.string().min(1) }).strict(),
   z.object({ type: z.literal("denied_by_authorization"), errorCode: z.string().min(1), decisionId: z.string().min(1) }).strict(),
   z.object({ type: z.literal("confirmation_required"), decisionId: z.string().min(1), descriptor: z.unknown() }).strict(),
   z.object({ type: z.literal("failed_not_committed"), errorCode: z.string().min(1) }).strict(),
   z.object({ type: z.literal("ambiguous_after_dispatch"), errorCode: z.string().min(1) }).strict(),
   z.object({ type: z.literal("cancelled"), dispatchState: z.enum(["before", "after", "unknown"]) }).strict(),
-]);
+]).superRefine((outcome, context) => {
+  if (outcome.type !== "deduplicated") return;
+  const hasResult = Object.prototype.hasOwnProperty.call(outcome, "result");
+  if (hasResult !== (outcome.reason === "committed_result_reused")) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["result"],
+      message: "result is required only for committed_result_reused and forbidden for other reasons",
+    });
+  }
+});
 
 export const structuredToolResultEnvelopeSchema = z.object({
   schemaVersion: z.literal("1.0"),
@@ -93,6 +109,9 @@ export const structuredToolResultEnvelopeSchema = z.object({
 
 type GovernedOutcome<TResult> =
   | { type: "succeeded"; result: TResult }
+  /** @since 0.1.0-alpha.3 Dispatch deduplication for side-effect tool consumers. */
+  | { type: "deduplicated"; reason: "committed_result_reused"; original: { businessEffectId: string; toolExecutionId?: string }; result: TResult }
+  | { type: "deduplicated"; reason: "in_flight_duplicate" | "original_outcome_unknown"; original: { businessEffectId: string; toolExecutionId?: string }; result?: never }
   | { type: "rejected_before_dispatch"; errorCode: string }
   | { type: "denied_by_authorization"; errorCode: string; decisionId: string }
   | { type: "confirmation_required"; decisionId: string; descriptor: unknown }

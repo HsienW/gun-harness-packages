@@ -1,6 +1,6 @@
 {
   "name": "@gun-ai/harness-contracts",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "private": false,
   "description": "Framework-agnostic Chat Gun runtime v4 contracts and schemas.",
   "license": "MIT",
