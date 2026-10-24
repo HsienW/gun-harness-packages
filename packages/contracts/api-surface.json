@@ -1,4 +1,14 @@
 {
+  "governedOutcomes": {
+    "deduplicated": {
+      "since": "0.1.0-alpha.3",
+      "reasons": ["committed_result_reused", "in_flight_duplicate", "original_outcome_unknown"],
+      "original": { "businessEffectId": "string", "toolExecutionId": "string?" },
+      "resultRequiredFor": ["committed_result_reused"],
+      "strict": true,
+      "terminationCause": "deduplicated"
+    }
+  },
   "runtime": [
     "ACCOUNT_STATUS_VALUES",
     "accountStatusSchema",

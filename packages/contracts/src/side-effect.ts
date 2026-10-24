@@ -113,6 +113,9 @@ export type ConfirmationConsumeResult =
 export type DispatchState = "before" | "after" | "unknown";
 type GovernedToolOutcome<TResult> =
   | { type: "succeeded"; result: TResult }
+  /** @since 0.1.0-alpha.3 Dispatch deduplication for side-effect tool consumers. */
+  | { type: "deduplicated"; reason: "committed_result_reused"; original: { businessEffectId: string; toolExecutionId?: string }; result: TResult }
+  | { type: "deduplicated"; reason: "in_flight_duplicate" | "original_outcome_unknown"; original: { businessEffectId: string; toolExecutionId?: string }; result?: never }
   | { type: "rejected_before_dispatch"; errorCode: string }
   | { type: "denied_by_authorization"; errorCode: string; decisionId: string }
   | { type: "confirmation_required"; decisionId: string; descriptor: ConfirmationRequiredDescriptor }
@@ -121,6 +124,8 @@ type GovernedToolOutcome<TResult> =
   | { type: "cancelled"; dispatchState: DispatchState };
 
 export type ToolExecutionTerminationCause =
+  /** @since 0.1.0-alpha.3 */
+  | "deduplicated"
   | "completed" | "rejected_before_dispatch" | "denied_by_authorization"
   | "confirmation_required" | "failed_not_committed" | "ambiguous_after_dispatch"
   | "cancelled_before_dispatch" | "cancelled_after_dispatch"
