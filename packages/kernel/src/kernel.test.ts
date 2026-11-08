@@ -17,6 +17,7 @@ import {
   isScopeCompatible,
   parseKey,
   parseRuntimeEventEnvelope,
+  parseRuntimeEventPayload,
   projectTrustedScope,
   serializeKey,
   stableEventId,
@@ -126,5 +127,33 @@ describe("runtime version compatibility", () => {
         return true;
       }
     );
+  });
+});
+
+
+describe("model.stream answer identity", () => {
+  const payload = { delta: "hello", messageId: "message-1", outputKind: "answer_text", textOffset: 0 };
+
+  it("D6-8 preserves identity through the public payload parser", () => {
+    assert.deepEqual(parseRuntimeEventPayload("model.stream", payload), payload);
+  });
+  it("D6-9 preserves identity through envelope and payload parsing", () => {
+    const envelope = parseRuntimeEventEnvelope({
+      schemaVersion: "1.0.0", eventId: "event-1", sequence: 1,
+      type: "model.stream", emittedAt: "2026-10-05T00:00:00.000Z",
+      context: {
+        requestId: "request-1", threadId: "thread-1", runId: "run-1",
+        taskId: "task-1", attempt: 1, principalId: "user-1",
+        tenantId: "tenant-1", scopeId: "scope-1", scopeType: "tenant",
+      },
+      payload,
+    });
+    assert.deepEqual(envelope.payload, payload);
+    assert.deepEqual(parseRuntimeEventPayload(envelope.type, envelope.payload), payload);
+  });
+  it("D6-10 rejects negative offsets through the existing validation error", () => {
+    assert.throws(() => parseRuntimeEventPayload("model.stream", { ...payload, textOffset: -1 }), {
+      name: "ZodError",
+    });
   });
 });

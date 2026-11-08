@@ -77,6 +77,11 @@ export const RUNTIME_EVENT_TYPES = [
 ] as const;
 export type RuntimeEventType = (typeof RUNTIME_EVENT_TYPES)[number];
 
+/** Closed set of model.stream output kinds. @since 0.1.0-alpha.4 */
+export const MODEL_STREAM_OUTPUT_KINDS = ["answer_text"] as const;
+/** Output kind of a model.stream payload. @since 0.1.0-alpha.4 */
+export type ModelStreamOutputKind = (typeof MODEL_STREAM_OUTPUT_KINDS)[number];
+
 export type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
 const opaqueIdSchema = z.string().trim().min(1).max(256);
 const machineIdentifierSchema = z.string().min(1).max(128).regex(/^[A-Za-z0-9][A-Za-z0-9_.:-]*$/);
@@ -116,7 +121,13 @@ export const RUNTIME_EVENT_PAYLOAD_SCHEMAS = {
     errorCode: reasonCodeSchema,
   }).strict(),
   "step.retrying": stepPayload("retryable_failed"),
-  "model.stream": z.object({ delta: z.string().max(65_536) }).strict(),
+  "model.stream": z.object({
+    delta: z.string().max(65_536),
+    messageId: opaqueIdSchema.optional(),
+    outputKind: z.enum(MODEL_STREAM_OUTPUT_KINDS).optional(),
+    // Previously published text length in UTF-16 code units; starts at zero.
+    textOffset: z.number().int().nonnegative().safe().optional(),
+  }).strict(),
   "model.done": z.object({ finishReason: machineIdentifierSchema.optional() }).strict(),
   "model.error": z.object({ errorCode: reasonCodeSchema }).strict(),
   "tool.start": z.object({ toolName: machineIdentifierSchema, toolCallId: opaqueIdSchema }).strict(),

@@ -53,3 +53,13 @@ describe("testkit deterministic fixtures", () => {
     assert.deepEqual(kinds.map((kind) => createFailureInjectionFixture(kind).kind), kinds);
   });
 });
+
+
+describe("model.stream fixture identity", () => {
+  it("preserves all three identity fields in the envelope fixture", () => {
+    const payload = { delta: "hello", messageId: "message-1", outputKind: "answer_text", textOffset: 0 };
+    const envelope = createRuntimeEventEnvelopeFixture({ type: "model.stream", payload });
+    assert.equal(envelope.type, "model.stream");
+    assert.deepEqual(envelope.payload, payload);
+  });
+});
