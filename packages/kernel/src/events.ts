@@ -25,6 +25,10 @@ export function isRuntimeEventType(value: string): value is RuntimeEventType {
   return RUNTIME_EVENT_TYPES.some((eventType) => eventType === value);
 }
 
+/**
+ * Payload fields are defined solely by contracts RUNTIME_EVENT_PAYLOAD_SCHEMAS.
+ * Kernel must not add a field allowlist, strip fields, or transform their values.
+ */
 export function parseRuntimeEventPayload(type: string, payload: unknown): RuntimeEventPayload {
   if (!isRuntimeEventType(type)) throw new Error(`UNKNOWN_RUNTIME_EVENT_TYPE: ${type}`);
   return RUNTIME_EVENT_PAYLOAD_SCHEMAS[type].parse(payload) as RuntimeEventPayload;

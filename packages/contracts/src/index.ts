@@ -115,6 +115,7 @@ export type {
 
 /** Stable versioned runtime event contracts. @since 0.1.0 */
 export {
+  MODEL_STREAM_OUTPUT_KINDS,
   RUNTIME_EVENT_PAYLOAD_SCHEMAS,
   RUNTIME_EVENT_SCHEMA_VERSION,
   RUNTIME_EVENT_TYPES,
@@ -124,6 +125,7 @@ export {
 export type {
   ExecutionEventContext,
   JsonValue,
+  ModelStreamOutputKind,
   RuntimeEventEnvelope,
   RuntimeEventPayload,
   RuntimeEventSchemaVersion,
